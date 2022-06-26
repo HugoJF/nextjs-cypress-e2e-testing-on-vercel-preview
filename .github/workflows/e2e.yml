@@ -1,10 +1,11 @@
-name: Cypress Tests
+name: E2E Tests
 
 on:
   deployment_status
 
 jobs:
   e2e-chrome-tests:
+    name: [E2E] Chrome tests
     timeout-minutes: 15
     runs-on: ubuntu-latest
     container:
@@ -42,6 +43,7 @@ jobs:
           E2E_BASE_URL: ${{ steps.vercel.outputs.url }}
 
   e2e-mobile-chrome-tests:
+    name: [E2E] Mobile Chrome
     timeout-minutes: 15
     runs-on: ubuntu-latest
     container:
@@ -80,6 +82,7 @@ jobs:
           E2E_BASE_URL: ${{ steps.vercel.outputs.url }}
 
   e2e-firefox-tests:
+    name: [E2E] Firefox tests
     timeout-minutes: 15
     runs-on: ubuntu-latest
     container:
@@ -117,6 +120,7 @@ jobs:
           E2E_BASE_URL: ${{ steps.vercel.outputs.url }}
 
   e2e-mobile-firefox-tests:
+    name: [E2E] Mobile Firefox
     timeout-minutes: 15
     runs-on: ubuntu-latest
     container:

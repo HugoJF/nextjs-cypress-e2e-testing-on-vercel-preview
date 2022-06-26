@@ -1,10 +1,11 @@
-name: Cypress Tests
+name: Component tests
 
 on:
   pull_request:
 
 jobs:
-  ui-chrome-tests:
+  ct-chrome-tests:
+    name: [CT] Chrome tests
     timeout-minutes: 15
     runs-on: ubuntu-latest
     container:
@@ -23,7 +24,7 @@ jobs:
       - name: __e Dir
         run: ls /__e
 
-      - name: "UI Tests - Chrome"
+      - name: "CT Tests - Chrome"
         uses: cypress-io/github-action@v4
         with:
           component: true
@@ -34,7 +35,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEBUG: "cypress:server:args"
 
-  ui-chrome-mobile-tests:
+  ct-chrome-mobile-tests:
+    name: [CT] Mobile Chrome
     timeout-minutes: 15
     runs-on: ubuntu-latest
     container:
@@ -44,7 +46,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: "UI Tests - Chrome - Mobile"
+      - name: "CT Tests - Chrome - Mobile"
         uses: cypress-io/github-action@v4
         with:
           # TODO: check if this is necessary
@@ -57,7 +59,8 @@ jobs:
           # determine the unique run id necessary to re-run the checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  ui-firefox-tests:
+  ct-firefox-tests:
+    name: [CT] Firefox tests
     timeout-minutes: 15
     runs-on: ubuntu-latest
     container:
@@ -67,7 +70,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: "UI Tests - Firefox"
+      - name: "CT Tests - Firefox"
         uses: cypress-io/github-action@v4
         with:
           component: true
@@ -77,7 +80,8 @@ jobs:
           # determine the unique run id necessary to re-run the checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  ui-firefox-mobile-tests:
+  ct-firefox-mobile-tests:
+    name: [CT] Mobile Firefox
     timeout-minutes: 15
     runs-on: ubuntu-latest
     container:
@@ -87,7 +91,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: "UI Tests - Firefox - Mobile"
+      - name: "CT Tests - Firefox - Mobile"
         uses: cypress-io/github-action@v4
         with:
           config: "viewportWidth=375,viewportHeight=667"
