@@ -1,6 +1,6 @@
 describe('counter app', () => {
     beforeEach(() => {
-        cy.visit('http://localhost:3000/')
+        cy.visit('/')
     })
 
     it('it renders a count with 0', () => {
