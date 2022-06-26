@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "e2e": "cypress run --e2e",
+    "ct": "cypress run --component"
   },
   "dependencies": {
     "next": "12.1.6",
@@ -14,10 +16,12 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@testing-library/cypress": "^8.0.3",
     "@types/node": "18.0.0",
     "@types/react": "18.0.14",
     "@types/react-dom": "18.0.5",
     "autoprefixer": "^10.4.7",
+    "cypress": "^10.2.0",
     "eslint": "8.18.0",
     "eslint-config-next": "12.1.6",
     "postcss": "^8.4.14",

@@ -15,13 +15,20 @@ export default function Counter({initial = 0, increments = 1}) {
         <button
             className="duration-150 p-8 hover:bg-gray-800 rounded-l-lg"
             onClick={handleDecrement}
+            data-test="decrement"
         >
             -
         </button>
-        <span className="py-8 px-16 font-mono">{count}</span>
+        <span
+            className="py-8 px-16 font-mono"
+            data-test="count"
+        >
+            {count}
+        </span>
         <button
             className="duration-150 p-8 hover:bg-gray-800 rounded-r-lg"
             onClick={handleIncrement}
+            data-test="increment"
         >
             +
         </button>
