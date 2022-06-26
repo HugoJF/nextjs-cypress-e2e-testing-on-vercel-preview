@@ -1,0 +1,147 @@
+name: End-to-end testing
+
+on:
+  deployment_status
+
+jobs:
+  e2e-chrome-tests:
+    name: "Chrome tests"
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    container:
+      image: cypress/browsers:node16.13.0-chrome95-ff94
+      options: --user 1001
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Node info
+        run: node -v
+
+      - name: __e Dir
+        run: ls /__e
+
+      - name: Waiting for 200 from the Vercel Preview
+        uses: patrickedqvist/wait-for-vercel-preview@v1.2.0
+        id: vercel
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          max_timeout: 120
+
+      - name: "E2E Tests - Chrome"
+        uses: cypress-io/github-action@v4
+        with:
+          browser: chrome
+        env:
+          # Recommended: pass the GitHub token lets this action correctly
+          # determine the unique run id necessary to re-run the checks
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEBUG: "cypress:server:args"
+          E2E_BASE_URL: ${{ steps.vercel.outputs.url }}
+
+  e2e-mobile-chrome-tests:
+    name: "Mobile Chrome"
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    container:
+      image: cypress/browsers:node16.13.0-chrome95-ff94
+      options: --user 1001
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Node info
+        run: node -v
+
+      - name: __e Dir
+        run: ls /__e
+
+      - name: Waiting for 200 from the Vercel Preview
+        uses: patrickedqvist/wait-for-vercel-preview@v1.2.0
+        id: vercel
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          max_timeout: 120
+
+      - name: "E2E Tests - Chrome"
+        uses: cypress-io/github-action@v4
+        with:
+          config: "viewportWidth=375,viewportHeight=667"
+          browser: chrome
+        env:
+          # Recommended: pass the GitHub token lets this action correctly
+          # determine the unique run id necessary to re-run the checks
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEBUG: "cypress:server:args"
+          E2E_BASE_URL: ${{ steps.vercel.outputs.url }}
+
+  e2e-firefox-tests:
+    name: "Firefox tests"
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    container:
+      image: cypress/browsers:node16.13.0-chrome95-ff94
+      options: --user 1001
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Node info
+        run: node -v
+
+      - name: __e Dir
+        run: ls /__e
+
+      - name: Waiting for 200 from the Vercel Preview
+        uses: patrickedqvist/wait-for-vercel-preview@v1.2.0
+        id: vercel
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          max_timeout: 120
+
+      - name: "E2E Tests - Firefox"
+        uses: cypress-io/github-action@v4
+        with:
+          browser: firefox
+        env:
+          # Recommended: pass the GitHub token lets this action correctly
+          # determine the unique run id necessary to re-run the checks
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEBUG: "cypress:server:args"
+          E2E_BASE_URL: ${{ steps.vercel.outputs.url }}
+
+  e2e-mobile-firefox-tests:
+    name: "Mobile Firefox"
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    container:
+      image: cypress/browsers:node16.13.0-chrome95-ff94
+      options: --user 1001
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Node info
+        run: node -v
+
+      - name: __e Dir
+        run: ls /__e
+
+      - name: Waiting for 200 from the Vercel Preview
+        uses: patrickedqvist/wait-for-vercel-preview@v1.2.0
+        id: vercel
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          max_timeout: 120
+
+      - name: "E2E Tests - Chrome"
+        uses: cypress-io/github-action@v4
+        with:
+          config: "viewportWidth=375,viewportHeight=667"
+          browser: firefox
+        env:
+          # Recommended: pass the GitHub token lets this action correctly
+          # determine the unique run id necessary to re-run the checks
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEBUG: "cypress:server:args"
+          E2E_BASE_URL: ${{ steps.vercel.outputs.url }}

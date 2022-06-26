@@ -1,0 +1,100 @@
+name: Component testing
+
+on:
+  pull_request:
+
+jobs:
+  ct-chrome-tests:
+    name: "Chrome tests"
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    container:
+      image: cypress/browsers:node16.13.0-chrome95-ff94
+      options: --user 1001
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Node info
+        run: node -v
+
+      - name: __e Dir
+        run: ls /__e
+
+      - name: "CT Tests - Chrome"
+        uses: cypress-io/github-action@v4
+        with:
+          component: true
+          browser: chrome
+        env:
+          # Recommended: pass the GitHub token lets this action correctly
+          # determine the unique run id necessary to re-run the checks
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEBUG: "cypress:server:args"
+
+  ct-chrome-mobile-tests:
+    name: "Mobile Chrome"
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    container:
+      image: cypress/browsers:node16.13.0-chrome95-ff94
+      options: --user 1001
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: "CT Tests - Chrome - Mobile"
+        uses: cypress-io/github-action@v4
+        with:
+          # TODO: check if this is necessary
+          #install: false
+          config: "viewportWidth=375,viewportHeight=667"
+          component: true
+          browser: chrome
+        env:
+          # Recommended: pass the GitHub token lets this action correctly
+          # determine the unique run id necessary to re-run the checks
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  ct-firefox-tests:
+    name: "Firefox tests"
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    container:
+      image: cypress/browsers:node16.13.0-chrome95-ff94
+      options: --user 1001
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: "CT Tests - Firefox"
+        uses: cypress-io/github-action@v4
+        with:
+          component: true
+          browser: firefox
+        env:
+          # Recommended: pass the GitHub token lets this action correctly
+          # determine the unique run id necessary to re-run the checks
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  ct-firefox-mobile-tests:
+    name: "Mobile Firefox"
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    container:
+      image: cypress/browsers:node16.13.0-chrome95-ff94
+      options: --user 1001
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: "CT Tests - Firefox - Mobile"
+        uses: cypress-io/github-action@v4
+        with:
+          config: "viewportWidth=375,viewportHeight=667"
+          component: true
+          browser: firefox
+        env:
+          # Recommended: pass the GitHub token lets this action correctly
+          # determine the unique run id necessary to re-run the checks
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
