@@ -23,12 +23,12 @@ jobs:
       - name: __e Dir
         run: ls /__e
 
-      - name: Get deployment URL
-        id: deployment
-        uses: dorshinar/get-deployment-url@master
-        timeout-minutes: 5
+      - name: Waiting for 200 from the Vercel Preview
+        uses: patrickedqvist/wait-for-vercel-preview@v1.2.0
+        id: vercel
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          max_timeout: 120
 
       - name: "E2E Tests - Chrome"
         uses: cypress-io/github-action@v4
@@ -39,4 +39,4 @@ jobs:
           # determine the unique run id necessary to re-run the checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEBUG: "cypress:server:args"
-          E2E_BASE_URL: ${{ steps.deployment.outputs.deployment }}
+          E2E_BASE_URL: ${{ steps.vercel.outputs.url }}
