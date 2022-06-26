@@ -23,10 +23,12 @@ jobs:
       - name: __e Dir
         run: ls /__e
 
-      - uses: aaimio/vercel-preview-url-action@v1
+      - uses: UnlyEd/github-action-await-vercel@v1.2.14
         id: vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          timeout: 10 # Wait for 10 seconds before failing
 
       - name: "E2E Tests - Chrome"
         uses: cypress-io/github-action@v4
