@@ -5,7 +5,7 @@ on:
 
 jobs:
   ct-chrome-tests:
-    name: [CT] Chrome tests
+    name: "[CT] Chrome tests"
     timeout-minutes: 15
     runs-on: ubuntu-latest
     container:
@@ -36,7 +36,7 @@ jobs:
           DEBUG: "cypress:server:args"
 
   ct-chrome-mobile-tests:
-    name: [CT] Mobile Chrome
+    name: "[CT] Mobile Chrome"
     timeout-minutes: 15
     runs-on: ubuntu-latest
     container:
@@ -60,7 +60,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   ct-firefox-tests:
-    name: [CT] Firefox tests
+    name: "[CT] Firefox tests"
     timeout-minutes: 15
     runs-on: ubuntu-latest
     container:
@@ -81,7 +81,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   ct-firefox-mobile-tests:
-    name: [CT] Mobile Firefox
+    name: "[CT] Mobile Firefox"
     timeout-minutes: 15
     runs-on: ubuntu-latest
     container:
